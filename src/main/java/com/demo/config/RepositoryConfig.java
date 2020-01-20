@@ -19,11 +19,18 @@ public class RepositoryConfig extends AbstractReactiveMongoConfiguration {
 	@Value("${dbname}")
 	private String dbName;
 
-	@Override
+        // Depricated
+	/*@Override
 	public MongoClient mongoClient() {
 		// TODO Auto-generated method stub
 		return MongoClients.create();
-	}
+	}*/
+        
+        // Modern
+        @Override
+        public MongoClient reactiveMongoClient() {
+            return MongoClients.create();
+        }
 
 	@Override
 	protected String getDatabaseName() {
@@ -33,6 +40,6 @@ public class RepositoryConfig extends AbstractReactiveMongoConfiguration {
 
 	@Bean
 	public ReactiveMongoTemplate reactiveMongoTemplate() {
-		return new ReactiveMongoTemplate(mongoClient(), getDatabaseName());
+		return new ReactiveMongoTemplate(reactiveMongoClient(), getDatabaseName());
 	}
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.demo.model.User;
 import com.demo.repository.UserRepo;
+import org.springframework.data.mongodb.core.ReactiveMongoOperations;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -14,11 +15,14 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserRepo userRepo;
+        
+        @Autowired
+        ReactiveMongoOperations operations;
 
 	@Override
 	public void createUser(User user) {
 		// TODO Auto-generated method stub
-		userRepo.save(user).subscribe();
+		userRepo.saveAll(Flux.just(user)).subscribe();
 	}
 	
 	@Override
