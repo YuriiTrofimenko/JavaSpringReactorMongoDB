@@ -1,6 +1,6 @@
 package com.demo.model;
 
-import org.bson.codecs.pojo.annotations.BsonId;
+// import org.bson.codecs.pojo.annotations.BsonId;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.annotation.Id;
@@ -9,12 +9,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Scope(scopeName = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Document
 public class User {
+    
+        private static int lastId = 0;
 	
 	String userName;
-	@BsonId
+	// @BsonId
+        @Id
 	int userId;
 	String phone;
-	
+
+        public User() {
+            this.userId = ++lastId;
+        }
+    
 	public String getUserName() {
 		return userName;
 	}
